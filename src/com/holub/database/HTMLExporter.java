@@ -18,26 +18,23 @@ public class HTMLExporter implements Table.Exporter {
 
 	@Override
 	public void storeMetadata(String tableName, int width, int height, Iterator<Object> columnNames) throws IOException {
+		createRowHtml(columnNames, "th");
+	}
+
+	private void createRowHtml(Iterator<Object> columnNames, String tag) throws IOException {
 		writer.append("<tr>");
 		while(columnNames.hasNext()) {
 			Object c = columnNames.next();
-			writer.append("<th>");
+			writer.append("<" + tag + ">");
 			writer.append(c.toString());
-			writer.append("</th>");
+			writer.append("</" + tag + ">");
 		}
 		writer.append("</tr>\r\n");
 	}
 
 	@Override
 	public void storeRow(Iterator<Object> data) throws IOException {
-		writer.append("<tr>");
-		while(data.hasNext()) {
-			Object c = data.next();
-			writer.append("<td>");
-			writer.append(c.toString());
-			writer.append("</td>");
-		}
-		writer.append("</tr>\r\n");
+		createRowHtml(data, "td");
 	}
 
 	@Override
