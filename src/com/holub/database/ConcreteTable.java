@@ -677,6 +677,11 @@ import com.holub.tools.ArrayIterator;
 				report(t, "Store/Load");
 			}
 			try {
+				testHtmlExport();
+			} catch (Throwable t) {
+				report(t, "Export HTML");
+			}
+			try {
 				testJoin();
 			} catch (Throwable t) {
 				report(t, "Join");
@@ -815,6 +820,12 @@ import com.holub.tools.ArrayIterator;
 			Reader in = new FileReader("people");
 			people = new ConcreteTable(new CSVImporter(in));
 			in.close();
+		}
+		
+		public void testHtmlExport() throws IOException {
+			Writer out = new FileWriter("people.html");
+			people.export(new HTMLExporter(out));
+			out.close();
 		}
 
 		public void testJoin() {

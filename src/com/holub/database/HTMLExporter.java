@@ -30,8 +30,14 @@ public class HTMLExporter implements Table.Exporter {
 
 	@Override
 	public void storeRow(Iterator<Object> data) throws IOException {
-		// TODO <tr><td></td></tr>»ý
-		
+		writer.append("<tr>");
+		while(data.hasNext()) {
+			Object c = data.next();
+			writer.append("<td>");
+			writer.append(c.toString());
+			writer.append("</td>");
+		}
+		writer.append("</tr>\r\n");
 	}
 
 	@Override
